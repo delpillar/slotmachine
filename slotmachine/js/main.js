@@ -28,6 +28,7 @@ function showPlayerStats()
     $("#playerWins").text("Wins: " + winNumber);
     $("#playerLosses").text("Losses: " + lossNumber);
     $("#playerWinRatio").text("Win Ratio: " + (winRatio * 100).toFixed(2) + "%");
+    $("#playerBets").text("Player bet: $" + playerBet);
 }
 
 /* Utility function to reset all fruit tallies */
@@ -203,10 +204,44 @@ function determineWinnings()
     
 }
 
+/* Adds all values from the bet buttons to the playerBet var */
+$("#bet1").click(function () {
+    playerBet += 1;
+    showPlayerStats();
+});
+$("#bet5").click(function () {
+    playerBet += 5;
+    showPlayerStats();
+});
+$("#bet10").click(function () {
+    playerBet += 10;
+    showPlayerStats();
+});
+$("#bet50").click(function () {
+    playerBet += 50;
+    showPlayerStats();
+});
+$("#resetBet").click(function () {
+    playerBet = 0;
+    showPlayerStats();
+});
+$("#betAll").click(function () {
+    console.log("PlayerMoney: " + playerMoney);
+    console.log("PlayerBet: " + playerBet);
+    playerBet = playerMoney;
+    showPlayerStats();
+    console.log("PlayerBet: " + playerBet);
+});
+
+
 /* When the player clicks the spin button the game kicks off */
 $("#spinButton").click(function () {
-    playerBet = $("div#betEntry>input").val();
-
+    //playerBet = $("div#betEntry>input").val();
+    console.log(playerBet);
+    if (playerBet == 0 && playerMoney != 0) {
+        alert("You don't have any bet!");
+    }
+    else{
     if (playerMoney == 0)
     {
         if (confirm("You ran out of Money! \nDo you want to play again?")) {
@@ -226,10 +261,12 @@ $("#spinButton").click(function () {
         $("div#result>p").text(fruits);
         determineWinnings();
         turn++;
+        playerBet = 0;
         showPlayerStats();
+        
     }
     else {
         alert("Please enter a valid bet amount");
     }
-    
+    }
 });
