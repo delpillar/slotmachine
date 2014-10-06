@@ -1,4 +1,5 @@
 ﻿/// <reference path="jquery.js" />
+/// <reference path="easeljs-0.7.1.min.js" />
 var playerMoney = 1000;
 var winnings = 0;
 var jackpot = 5000;
@@ -264,7 +265,6 @@ $("#spinButton").click(function () {
         $("div#result>p").text(fruits);
         determineWinnings();
         turn++;
-        playerBet = 0;
         showPlayerStats();
         
     }
