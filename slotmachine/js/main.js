@@ -18,8 +18,8 @@ var bells = 0;
 var sevens = 0;
 var blanks = 0;
 
-/* Utility function to show Player Stats */
 function showPlayerStats()
+/* Utility function to show Player Stats */
 {
     winRatio = winNumber / turn;
     $("#jackpot").text("Jackpot: " + jackpot);
@@ -111,31 +111,31 @@ function Reels() {
                 blanks++;
                 break;
             case checkRange(outCome[spin], 28, 37): // 15.4% probability
-                betLine[spin] = "Grapes";
+                betLine[spin] = "Mangaverse Spider-Man";
                 grapes++;
                 break;
             case checkRange(outCome[spin], 38, 46): // 13.8% probability
-                betLine[spin] = "Banana";
+                betLine[spin] = "House of M Spider-Man";
                 bananas++;
                 break;
             case checkRange(outCome[spin], 47, 54): // 12.3% probability
-                betLine[spin] = "Orange";
                 oranges++;
+                betLine[spin] = "Last Stand Spider-Man";
                 break;
             case checkRange(outCome[spin], 55, 59): //  7.7% probability
-                betLine[spin] = "Cherry";
+                betLine[spin] = "Electroproof Spider-Armor";
                 cherries++;
                 break;
             case checkRange(outCome[spin], 60, 62): //  4.6% probability
-                betLine[spin] = "Bar";
+                betLine[spin] = "Bulletproof Spider-Armor";
                 bars++;
                 break;
             case checkRange(outCome[spin], 63, 64): //  3.1% probability
-                betLine[spin] = "Bell";
+                betLine[spin] = "Spider-Armor";
                 bells++;
                 break;
             case checkRange(outCome[spin], 65, 65): //  1.5% probability
-                betLine[spin] = "Seven";
+                betLine[spin] = "Battle-Damaged Spider-Man";
                 sevens++;
                 break;
         }
