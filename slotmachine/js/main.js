@@ -24,11 +24,14 @@ function showPlayerStats()
     winRatio = winNumber / turn;
     $("#jackpot").text("Jackpot: " + jackpot);
     $("#playerMoney").text("Player Money: " + playerMoney);
-    $("#playerTurn").text("Turn: " + turn);
-    $("#playerWins").text("Wins: " + winNumber);
-    $("#playerLosses").text("Losses: " + lossNumber);
-    $("#playerWinRatio").text("Win Ratio: " + (winRatio * 100).toFixed(2) + "%");
     $("#playerBets").text("Player bet: $" + playerBet);
+
+    console.log("Jackpot: " + jackpot);
+    console.log("Player Money: " + playerMoney);
+    console.log("Wins: " + winNumber);
+    console.log("Losses: " + lossNumber);
+    console.log("Win Ratio: " + winRatio * 100 + "%");
+    console.log("Player bet: " + playerBet);
 }
 
 /* Utility function to reset all fruit tallies */
