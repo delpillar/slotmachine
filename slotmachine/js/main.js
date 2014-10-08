@@ -1,5 +1,6 @@
-﻿/// <reference path="jquery.js" />
+/// <reference path="jquery.js" />
 /// <reference path="easeljs-0.7.1.min.js" />
+
 var playerMoney = 1000;
 var winnings = 0;
 var jackpot = 5000;
@@ -18,6 +19,65 @@ var bars = 0;
 var bells = 0;
 var sevens = 0;
 var blanks = 0;
+var canvas;
+var canvasImage1;
+var canvasImage2;
+var canvasImage3;
+
+function init() {
+    $('#slotCanvas').css('background-color', 'rgba(158, 167, 184, 0.2)');
+    canvas = document.getElementById("slotCanvas");
+    canvas.width = 700
+    canvas.height = 300
+    canvasImage1 = new Image();
+    canvasImage2 = new Image();
+    canvasImage3 = new Image();
+    drawBitmap("img/blank.jpg","img/blank.jpg","img/blank.jpg");
+    
+    
+};
+
+function drawBitmap(img1, img2, img3) {
+    
+    
+    canvasImage1.src = img1;
+    canvasImage2.src = img2;
+    canvasImage3.src = img3;
+    
+    console.log(img1,img2,img3);
+    var stage = new createjs.Stage(canvas);
+    var image1 = new createjs.Bitmap(canvasImage1);
+    var image2 = new createjs.Bitmap(canvasImage2);
+    var image3 = new createjs.Bitmap(canvasImage3);
+    
+    stage.addChild(image1);
+    image1.scaleX = 0.5;
+    image1.scaleY = 0.5;
+    image1.x = 20;
+    image1.y = 20;
+    stage.addChild(image2);
+    image2.scaleX = 0.5;
+    image2.scaleY = 0.5;
+    image2.x = 170;
+    image2.y = 20;
+    stage.addChild(image3);
+    image3.scaleX = 0.5;
+    image3.scaleY = 0.5;
+    image3.x = 320;
+    image3.y = 20;
+    
+//    stage.addChild(bitmap);
+//    bitmap.id = "spiderman";
+//    bitmap.scaleX = 0.5;
+//    bitmap.scaleY = 0.5;
+//    bitmap.x = 20;
+//    bitmap.y = 20;
+//    bitmap.rotation = 35;
+//    bitmap.alpha = 0.5;
+    stage.update();
+    
+}
+
 
 function showPlayerStats()
 /* Utility function to show Player Stats */
@@ -64,7 +124,7 @@ function resetAll() {
 function checkJackPot() {
     /* compare two random values */
     var jackPotTry = Math.floor(Math.random() * 51 + 1);
-    var jackPotWin = Math.floor(Math.random() * 51 + 1);
+    var jackPotWin = 27; //Magic number
     if (jackPotTry == jackPotWin) {
         alert("You Won the $" + jackpot + " Jackpot!!");
         playerMoney += jackpot;
@@ -103,45 +163,54 @@ e.g. Bar - Orange - Banana */
 function Reels() {
     var betLine = [" ", " ", " "];
     var outCome = [0, 0, 0];
-
+    var betImage = [" "," ", " "];
     for (var spin = 0; spin < 3; spin++) {
         outCome[spin] = Math.floor((Math.random() * 65) + 1);
         switch (outCome[spin]) {
             case checkRange(outCome[spin], 1, 27):  // 41.5% probability
                 betLine[spin] = "blank";
+                betImage[spin] = "img/blank.jpg";
                 blanks++;
+                
                 break;
             case checkRange(outCome[spin], 28, 37): // 15.4% probability
                 betLine[spin] = "Mangaverse Spider-Man";
                 grapes++;
+                betImage[spin] = "img/mangaSpider.jpg";
                 break;
             case checkRange(outCome[spin], 38, 46): // 13.8% probability
                 betLine[spin] = "House of M Spider-Man";
                 bananas++;
+                betImage[spin] = "img/mangaSpider.jpg";
                 break;
             case checkRange(outCome[spin], 47, 54): // 12.3% probability
                 oranges++;
                 betLine[spin] = "Last Stand Spider-Man";
+                betImage[spin] = "img/laststandspiderman.png";
                 break;
             case checkRange(outCome[spin], 55, 59): //  7.7% probability
                 betLine[spin] = "Electroproof Spider-Armor";
+                betImage[spin] = "img/electroProof.png";
                 cherries++;
                 break;
             case checkRange(outCome[spin], 60, 62): //  4.6% probability
                 betLine[spin] = "Bulletproof Spider-Armor";
+                betImage[spin] = "img/bulletProofSpiderman.png";
                 bars++;
                 break;
             case checkRange(outCome[spin], 63, 64): //  3.1% probability
                 betLine[spin] = "Spider-Armor";
+                betImage[spin] = "img/spider-armor.png";
                 bells++;
                 break;
             case checkRange(outCome[spin], 65, 65): //  1.5% probability
                 betLine[spin] = "Battle-Damaged Spider-Man";
+                betImage[spin] = "img/battlewornSpider.png";
                 sevens++;
                 break;
         }
     }
-    return betLine;
+    return betImage;
 }
 
 /* This function calculates the player's winnings, if any */
@@ -191,12 +260,15 @@ function determineWinnings()
         else if (sevens == 2) {
             winnings = playerBet * 20;
         }
-        else if (sevens == 1) {
-            winnings = playerBet * 5;
-        }
+        
         else {
             winnings = playerBet * 1;
         }
+        
+        if (sevens == 1) {
+            winnings = playerBet * 5;
+        }
+        
         winNumber++;
         showWinMessage();
     }
@@ -261,6 +333,7 @@ $("#spinButton").click(function () {
     }
     else if (playerBet <= playerMoney) {
         spinResult = Reels();
+        drawBitmap(spinResult[0],spinResult[1],spinResult[2]);
         fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
         $("div#result>p").text(fruits);
         determineWinnings();
