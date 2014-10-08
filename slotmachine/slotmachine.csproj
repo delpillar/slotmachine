@@ -66,6 +66,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\main.css" />
+    <Content Include="img\battlewornSpider.png" />
+    <Content Include="img\bulletProofSpiderman.png" />
+    <Content Include="img\electroProof.png" />
+    <Content Include="img\houseofMspiderman.png" />
+    <Content Include="img\laststandspiderman.png" />
+    <Content Include="img\mangaSpider.bmp" />
+    <Content Include="img\mangaSpider.jpg" />
+    <Content Include="img\mangaSpider.png" />
+    <Content Include="img\spider-armor.png" />
     <Content Include="index.html" />
     <Content Include="js\easeljs-0.7.1.min.js" />
     <Content Include="js\jquery.js" />
@@ -76,9 +85,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="img\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

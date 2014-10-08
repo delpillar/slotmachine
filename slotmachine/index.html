@@ -5,24 +5,16 @@
     <title>Slot Machine</title>
     <!-- CSS Section -->
     <link href="css/main.css" rel="stylesheet" />
+    <script src="js/jquery.js"></script>
+    <script src="http://code.createjs.com/createjs-2013.12.12.min.js"></script>
     <script src="js/easeljs-0.7.1.min.js"></script>
-    <script>
-        function init(){
-            document.createElement("canvas");
-            canvas.setAttribute("id","initCanvas");
-            canvas.setAttribute("width","500");
-            canvas.setAttribute("height","500");
-        }
-        
-    </script>
+   
 </head>
 <body onload="init();">
-    <canvas id="slotCanvas" width="500" height="300">canvas not supported.</canvas>
+    
     <div>
         <h1>Slot Machine</h1>
         <div> 
-            <h2>Player Statistics</h2>
-            <hr />
             <ul id="playerStats">
                 <li id="jackpot">Jackpot: 500</li>
                 <li id="playerMoney">Player Money: 1000</li>
@@ -30,7 +22,7 @@
             </ul>
             <hr />
         </div>
-
+        <canvas id="slotCanvas" style="display:block;margin-bottom:20px;">canvas not supported.</canvas>
         <button id="resetBet">Reset bet</button>
         <button id="bet1">Bet $1</button>
         <button id="bet5">Bet $5</button>
@@ -52,7 +44,7 @@
 
 
     <!-- JavaScript Section -->
-    <script src="js/jquery.js"></script>
+    
     <script src="js/main.js"></script>
 </body>
 </html>
