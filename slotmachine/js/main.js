@@ -23,6 +23,7 @@ var canvas;
 var canvasImage1;
 var canvasImage2;
 var canvasImage3;
+var images;
 
 function init() {
     $('#slotCanvas').css('background-color', 'rgba(158, 167, 184, 0.2)');
@@ -32,8 +33,6 @@ function init() {
     canvasImage1 = new Image();
     canvasImage2 = new Image();
     canvasImage3 = new Image();
-    drawBitmap("img/blank.jpg","img/blank.jpg","img/blank.jpg");
-    
     
 };
 
@@ -66,6 +65,8 @@ function drawBitmap(img1, img2, img3) {
     image3.x = 320;
     image3.y = 20;
     
+    images = [image1,image2,image3];
+    
 //    stage.addChild(bitmap);
 //    bitmap.id = "spiderman";
 //    bitmap.scaleX = 0.5;
@@ -74,7 +75,16 @@ function drawBitmap(img1, img2, img3) {
 //    bitmap.y = 20;
 //    bitmap.rotation = 35;
 //    bitmap.alpha = 0.5;
-    stage.update();
+    
+    images = [image1,image2,image3];
+    
+    image1.image.onload = function(){
+        image2.image.onload = function(){
+            image3.image.onload = function(){
+                stage.update();
+            };
+        };
+    };
     
 }
 
@@ -161,50 +171,41 @@ function checkRange(value, lowerBounds, upperBounds) {
 /* When this function is called it determines the betLine results.
 e.g. Bar - Orange - Banana */
 function Reels() {
-    var betLine = [" ", " ", " "];
     var outCome = [0, 0, 0];
     var betImage = [" "," ", " "];
     for (var spin = 0; spin < 3; spin++) {
         outCome[spin] = Math.floor((Math.random() * 65) + 1);
         switch (outCome[spin]) {
             case checkRange(outCome[spin], 1, 27):  // 41.5% probability
-                betLine[spin] = "blank";
                 betImage[spin] = "img/blank.jpg";
                 blanks++;
                 
                 break;
             case checkRange(outCome[spin], 28, 37): // 15.4% probability
-                betLine[spin] = "Mangaverse Spider-Man";
                 grapes++;
                 betImage[spin] = "img/mangaSpider.jpg";
                 break;
             case checkRange(outCome[spin], 38, 46): // 13.8% probability
-                betLine[spin] = "House of M Spider-Man";
                 bananas++;
                 betImage[spin] = "img/mangaSpider.jpg";
                 break;
             case checkRange(outCome[spin], 47, 54): // 12.3% probability
                 oranges++;
-                betLine[spin] = "Last Stand Spider-Man";
                 betImage[spin] = "img/laststandspiderman.png";
                 break;
             case checkRange(outCome[spin], 55, 59): //  7.7% probability
-                betLine[spin] = "Electroproof Spider-Armor";
                 betImage[spin] = "img/electroProof.png";
                 cherries++;
                 break;
             case checkRange(outCome[spin], 60, 62): //  4.6% probability
-                betLine[spin] = "Bulletproof Spider-Armor";
                 betImage[spin] = "img/bulletProofSpiderman.png";
                 bars++;
                 break;
             case checkRange(outCome[spin], 63, 64): //  3.1% probability
-                betLine[spin] = "Spider-Armor";
                 betImage[spin] = "img/spider-armor.png";
                 bells++;
                 break;
             case checkRange(outCome[spin], 65, 65): //  1.5% probability
-                betLine[spin] = "Battle-Damaged Spider-Man";
                 betImage[spin] = "img/battlewornSpider.png";
                 sevens++;
                 break;
@@ -275,6 +276,7 @@ function determineWinnings()
     else
     {
         lossNumber++;
+        jackpot += playerBet;
         showLossMessage();
     }
     
