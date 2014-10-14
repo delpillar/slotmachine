@@ -26,11 +26,10 @@ var canvasImage3;
 var images;
 var stage;
 var sources;
-var images = {};
-
 
 function init() {
 
+    //image sources
     sources = {
         battlewornSpiderman: "img/battlewornSpider.png",
         bulletProofSpiderman: "img/bulletProofSpiderman.png",
@@ -42,6 +41,7 @@ function init() {
         blank: "img/blank.jpg"
     };
    
+    //initialize easel canvas and images.
     $('#slotCanvas').css('background-color', 'rgba(0, 0, 0, 0.9)');
     canvas = document.getElementById("slotCanvas");
     canvas.width = 650;
@@ -52,15 +52,15 @@ function init() {
     canvasImage2 = new Image();
     canvasImage3 = new Image();
 
+    //preload blank images at start of game
     loadImages(sources, function () {
         drawBitmap(sources.blank, sources.blank, sources.blank);
     });
-
-    
 };
 
 // function to preload images before drawing on canvas.
 function loadImages(sources, callback) {
+    var images = {};
     var loadedImages = 0;
     var numImages = 0;
 
@@ -80,17 +80,14 @@ function loadImages(sources, callback) {
         images[src].src = sources[src];
     }
     console.log("Loaded Images: " + loadedImages);
-   
 }
 
+//draws images on canvas; called when spin button is clicked.
 function drawBitmap(img1, img2, img3) {
-    
     
     canvasImage1.src = img1;
     canvasImage2.src = img2;
     canvasImage3.src = img3;
-    
-   // console.log(img1,img2,img3);
     
     var image1 = new createjs.Bitmap(canvasImage1);
     var image2 = new createjs.Bitmap(canvasImage2);
@@ -118,7 +115,6 @@ function drawBitmap(img1, img2, img3) {
     
     
 }
-
 
 function showPlayerStats()
 /* Utility function to show Player Stats */
@@ -152,7 +148,7 @@ function resetFruitTally() {
 function resetAll() {
     playerMoney = 1000;
     winnings = 0;
-    //jackpot = 5000;
+    jackpot = 5000;
     turn = 0;
     playerBet = 0;
     winNumber = 0;
@@ -240,8 +236,6 @@ function Reels() {
                 betImage[spin] = "img/battlewornSpider.png";
                 sevens++;
                 break;
-
-              
         }
     }
     console.log("Grapes: " + grapes + " Bananas: " + bananas + " Oranges: " + oranges);
@@ -297,7 +291,6 @@ function determineWinnings()
         else if (sevens == 2) {
             winnings = playerBet * 20;
         }
-        
         else {
             winnings = playerBet * 1;
         }
@@ -305,7 +298,7 @@ function determineWinnings()
         if (sevens == 1) {
             winnings = playerBet * 5;
         }
-        
+
         winNumber++;
         showWinMessage();
     }
@@ -317,7 +310,6 @@ function determineWinnings()
     }
     
 }
-
 /* Adds all values from the bet buttons to the playerBet var */
 $("#bet1").click(function () {
     playerBet += 1;
@@ -344,41 +336,36 @@ $("#betAll").click(function () {
     showPlayerStats();
 });
 
-
 /* When the player clicks the spin button the game kicks off */
 $("#spinButton").click(function () {
     //playerBet = $("div#betEntry>input").val();
     if (playerBet == 0 && playerMoney != 0) {
         alert("You don't have any bet!");
     }
-    else{
-    if (playerMoney == 0)
-    {
-        if (confirm("You ran out of Money! \nDo you want to play again?")) {
-            resetAll();
+    else {
+        if (playerMoney == 0) {
+            if (confirm("You ran out of Money! \nDo you want to play again?")) {
+                resetAll();
+                showPlayerStats();
+            }
+        }
+        else if (playerBet > playerMoney) {
+            alert("You don't have enough Money to place that bet.");
+        }
+        else if (playerBet < 0) {
+            alert("All bets must be a positive $ amount.");
+        }
+        else if (playerBet <= playerMoney) {
+            spinResult = Reels();
+            drawBitmap(spinResult[0],spinResult[1],spinResult[2]);
+            fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
+            $("div#result>p").text(fruits);
+            determineWinnings();
+            turn++;
             showPlayerStats();
         }
-    }
-    else if (playerBet > playerMoney) {
-        alert("You don't have enough Money to place that bet.");
-    }
-    else if (playerBet < 0) {
-        alert("All bets must be a positive $ amount.");
-    }
-    else if (playerBet <= playerMoney) {
-        spinResult = Reels();
-        drawBitmap(spinResult[0],spinResult[1],spinResult[2]);
-        fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-        $("div#result>p").text(fruits);
-        determineWinnings();
-        
-
-        turn++;
-        showPlayerStats();
-        
-    }
-    else {
-        alert("Please enter a valid bet amount");
-    }
+        else {
+            alert("Please enter a valid bet amount");
+        }
     }
 });
