@@ -48,6 +48,7 @@ function init() {
     canvas.height = 300;
     stage = new createjs.Stage(canvas);
 
+    //instantiate canvas images
     canvasImage1 = new Image();
     canvasImage2 = new Image();
     canvasImage3 = new Image();
