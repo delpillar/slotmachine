@@ -11,10 +11,10 @@
    
 </head>
 <body onload="init();">
-    
+
     <div>
         <h1>Slot Machine</h1>
-        <div> 
+        <div>
             <ul id="playerStats">
                 <li id="jackpot">Jackpot: 5000</li>
                 <li id="playerMoney">Player Money: 1000</li>
@@ -23,15 +23,31 @@
             <hr />
         </div>
         <canvas id="slotCanvas" style="display:block;margin-bottom:20px;">canvas not supported.</canvas>
-        <button id="resetBet">Reset bet</button>
-        <button id="bet5">Bet $5</button>
-        <button id="bet10">Bet $10</button>
-        <button id="bet50">Bet $50</button>
-        <button id="betAll">Bet All</button>
-        <button id="spinButton">Spin!</button>
+
+
+        <div class="buttons-container">
+            <div class="button-container">
+                <button id="resetBet" class="btn btn-red">Reset bet</button>
+            </div>
+            <div class="button-container">
+                <button id="bet5" class="btn btn-blue">Bet $5</button>
+            </div>
+            <div class="button-container">
+                <button id="bet10" class="btn btn-blue">Bet $10</button>
+            </div>
+            <div class="button-container">
+                <button id="bet50" class="btn btn-blue">Bet $50</button>
+            </div>
+            <div class="button-container">
+                <button id="betAll" class="btn btn-yellow">Bet All</button>
+            </div>
+            <div class="button-container">
+                <button id="spinButton" class="btn btn-green">Spin!</button>
+            </div>
+        </div>
     </div>
 
-    <div id="result">
+    <div id="result" style="display:inline-block">
         <h2>Spin Result</h2>
         <hr />
         <p></p>
