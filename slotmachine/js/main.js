@@ -25,25 +25,42 @@ var canvasImage2;
 var canvasImage3;
 var images;
 var stage;
+var sources;
+var images = {};
 
 
 function init() {
+
+    sources = {
+        battlewornSpiderman: "img/battlewornSpider.png",
+        bulletProofSpiderman: "img/bulletProofSpiderman.png",
+        electroProofSpiderman: "img/electroProof.png",
+        houseofMSpiderman: "img/houseofMspiderman.png",
+        lastStandSpiderman: "img/laststandspiderman.png",
+        mangaSpiderman: "img/mangaSpider.png",
+        armoredSpiderman: "img/spider-armor.png",
+        blank: "img/blank.jpg"
+    };
+   
     $('#slotCanvas').css('background-color', 'rgba(0, 0, 0, 0.9)');
     canvas = document.getElementById("slotCanvas");
     canvas.width = 650;
     canvas.height = 300;
     stage = new createjs.Stage(canvas);
+
     canvasImage1 = new Image();
     canvasImage2 = new Image();
     canvasImage3 = new Image();
 
-    
+    loadImages(sources, function () {
+        drawBitmap(sources.blank, sources.blank, sources.blank);
+    });
+
     
 };
 
 // function to preload images before drawing on canvas.
 function loadImages(sources, callback) {
-    var images = {};
     var loadedImages = 0;
     var numImages = 0;
 
@@ -51,15 +68,19 @@ function loadImages(sources, callback) {
     for (var src in sources) {
         numImages++;
     }
+    console.log("Num of Images: " + numImages);
     for (var src in sources) {
         images[src] = new Image();
         images[src].onload = function () {
-            if (loadedImages++ >= numImages) {
+            if (++loadedImages >= numImages) {
+                console.log(loadedImages);
                 callback(images);
             }
         };
         images[src].src = sources[src];
     }
+    console.log("Loaded Images: " + loadedImages);
+   
 }
 
 function drawBitmap(img1, img2, img3) {
@@ -90,16 +111,11 @@ function drawBitmap(img1, img2, img3) {
     image3.scaleY = 0.5;
     image3.x = 320;
     image3.y = 20;
-    
-    stage.update();
 
-    //image1.image.onload = function(){
-    //    image2.image.onload = function(){
-    //        image3.image.onload = function(){
-    //            stage.update();
-    //        };
-    //    };
-    //};
+    loadImages(sources, function (images) {
+        stage.update();
+    });
+    
     
 }
 
