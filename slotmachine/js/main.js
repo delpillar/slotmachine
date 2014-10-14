@@ -311,10 +311,6 @@ function determineWinnings()
     
 }
 /* Adds all values from the bet buttons to the playerBet var */
-$("#bet1").click(function () {
-    playerBet += 1;
-    showPlayerStats();
-});
 $("#bet5").click(function () {
     playerBet += 5;
     showPlayerStats();
