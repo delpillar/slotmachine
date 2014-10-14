@@ -24,15 +24,20 @@ var canvasImage1;
 var canvasImage2;
 var canvasImage3;
 var images;
+var stage;
+
 
 function init() {
-    $('#slotCanvas').css('background-color', 'rgba(158, 167, 184, 0.2)');
+    $('#slotCanvas').css('background-color', 'rgba(0, 0, 0, 0.9)');
     canvas = document.getElementById("slotCanvas");
-    canvas.width = 700
-    canvas.height = 300
+    canvas.width = 650;
+    canvas.height = 300;
+    stage = new createjs.Stage(canvas);
     canvasImage1 = new Image();
     canvasImage2 = new Image();
     canvasImage3 = new Image();
+
+    
     
 };
 
@@ -43,8 +48,8 @@ function drawBitmap(img1, img2, img3) {
     canvasImage2.src = img2;
     canvasImage3.src = img3;
     
-    console.log(img1,img2,img3);
-    var stage = new createjs.Stage(canvas);
+   // console.log(img1,img2,img3);
+    
     var image1 = new createjs.Bitmap(canvasImage1);
     var image2 = new createjs.Bitmap(canvasImage2);
     var image3 = new createjs.Bitmap(canvasImage3);
@@ -65,26 +70,15 @@ function drawBitmap(img1, img2, img3) {
     image3.x = 320;
     image3.y = 20;
     
-    images = [image1,image2,image3];
-    
-//    stage.addChild(bitmap);
-//    bitmap.id = "spiderman";
-//    bitmap.scaleX = 0.5;
-//    bitmap.scaleY = 0.5;
-//    bitmap.x = 20;
-//    bitmap.y = 20;
-//    bitmap.rotation = 35;
-//    bitmap.alpha = 0.5;
-    
-    images = [image1,image2,image3];
-    
-    image1.image.onload = function(){
-        image2.image.onload = function(){
-            image3.image.onload = function(){
-                stage.update();
-            };
-        };
-    };
+    stage.update();
+
+    //image1.image.onload = function(){
+    //    image2.image.onload = function(){
+    //        image3.image.onload = function(){
+    //            stage.update();
+    //        };
+    //    };
+    //};
     
 }
 
@@ -121,7 +115,7 @@ function resetFruitTally() {
 function resetAll() {
     playerMoney = 1000;
     winnings = 0;
-    jackpot = 5000;
+    //jackpot = 5000;
     turn = 0;
     playerBet = 0;
     winNumber = 0;
@@ -209,8 +203,13 @@ function Reels() {
                 betImage[spin] = "img/battlewornSpider.png";
                 sevens++;
                 break;
+
+              
         }
     }
+    console.log("Grapes: " + grapes + " Bananas: " + bananas + " Oranges: " + oranges);
+    console.log("Cherries: " + cherries + " Bars: " + bars + " Bells: " + bells);
+    console.log("Sevens: " + sevens + " Blanks: " + blanks);
     return betImage;
 }
 
@@ -304,18 +303,14 @@ $("#resetBet").click(function () {
     showPlayerStats();
 });
 $("#betAll").click(function () {
-    console.log("PlayerMoney: " + playerMoney);
-    console.log("PlayerBet: " + playerBet);
     playerBet = playerMoney;
     showPlayerStats();
-    console.log("PlayerBet: " + playerBet);
 });
 
 
 /* When the player clicks the spin button the game kicks off */
 $("#spinButton").click(function () {
     //playerBet = $("div#betEntry>input").val();
-    console.log(playerBet);
     if (playerBet == 0 && playerMoney != 0) {
         alert("You don't have any bet!");
     }
@@ -339,6 +334,8 @@ $("#spinButton").click(function () {
         fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
         $("div#result>p").text(fruits);
         determineWinnings();
+        
+
         turn++;
         showPlayerStats();
         
