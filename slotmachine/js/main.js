@@ -165,7 +165,7 @@ function checkJackPot() {
     if (jackPotTry == jackPotWin) {
         alert("You Won the $" + jackpot + " Jackpot!!");
         playerMoney += jackpot;
-        jackpot = 1000;
+        jackpot = 5000;
     }
 }
 
