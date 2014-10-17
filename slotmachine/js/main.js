@@ -26,6 +26,8 @@ var canvasImage3;
 var images;
 var stage;
 var sources;
+var background;
+var canvasBG;
 
 function init() {
 
@@ -38,7 +40,8 @@ function init() {
         lastStandSpiderman: "img/laststandspiderman.png",
         mangaSpiderman: "img/mangaSpider.png",
         armoredSpiderman: "img/spider-armor.png",
-        blank: "img/blank.jpg"
+        blank: "img/blank.jpg",
+        background: "img/background2.jpg"
     };
    
     //initialize easel canvas and images.
@@ -48,15 +51,27 @@ function init() {
     canvas.height = 300;
     stage = new createjs.Stage(canvas);
 
+    
+
+
     //instantiate canvas images
     canvasImage1 = new Image();
     canvasImage2 = new Image();
     canvasImage3 = new Image();
+    background = new Image();
 
     //preload blank images at start of game
     loadImages(sources, function () {
         drawBitmap(sources.blank, sources.blank, sources.blank);
     });
+    background.src = sources.background;
+    canvasBG = new createjs.Bitmap(background);
+    stage.addChild(canvasBG);
+    canvasBG.x = 0;
+    canvasBG.y = 0;
+    canvasBG.scaleX = 0.4;
+    canvasBG.scaleY = 0.4;
+    stage.update();
 };
 
 // function to preload images before drawing on canvas.
