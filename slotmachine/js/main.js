@@ -28,7 +28,7 @@ var stage;
 var sources;
 var background;
 var canvasBG;
-
+var message;
 function init() {
 
     //image sources
@@ -67,10 +67,23 @@ function init() {
     background.src = sources.background;
     canvasBG = new createjs.Bitmap(background);
     stage.addChild(canvasBG);
+
     canvasBG.x = 0;
     canvasBG.y = 0;
     canvasBG.scaleX = 0.5;
     canvasBG.scaleY = 0.4;
+
+    message = new createjs.Text();
+    message.font = "bold 96px Dorsa";
+    message.color = "#000000";
+    message.text = "Jackpot: " + jackpot;
+    message.x = 500;
+    message.y = 500;
+    message.textBaseline = "alphabetic";
+    console.log(message);
+    console.log(message.text);
+    console.log(message.font);
+    stage.addChild(message);
     stage.update();
 };
 
@@ -112,19 +125,30 @@ function drawBitmap(img1, img2, img3) {
     stage.addChild(image1);
     image1.scaleX = 0.8;
     image1.scaleY = 0.8;
-    image1.x = 20;
-    image1.y = 20;
+    image1.x = 40;
+    image1.y = 50;
     stage.addChild(image2);
     image2.scaleX = 0.8;
     image2.scaleY = 0.8;
-    image2.x = 170;
-    image2.y = 20;
+    image2.x = image1.x + 250;
+    image2.y = 50;
     stage.addChild(image3);
     image3.scaleX = 0.8;
     image3.scaleY = 0.8;
-    image3.x = 320;
-    image3.y = 20;
+    image3.x = image2.x + 250;
+    image3.y = 50;
 
+    message.font = "bold 96px Dorsa";
+    message.color = "#000000";
+    message.text = "Jackpot: " + jackpot;
+    console.log("Jackpot: " + jackpot);
+    message.x = 500;
+    message.y = 500;
+    message.textBaseline = "alphabetic";
+    stage.addChild(message);
+    
+
+    console.log(message);
     loadImages(sources, function (images) {
         stage.update();
     });
@@ -369,12 +393,14 @@ $("#spinButton").click(function () {
         }
         else if (playerBet <= playerMoney) {
             spinResult = Reels();
-            drawBitmap(spinResult[0],spinResult[1],spinResult[2]);
+            
             fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
             $("div#result>p").text(fruits);
             determineWinnings();
+            
             turn++;
             showPlayerStats();
+            drawBitmap(spinResult[0], spinResult[1], spinResult[2]);
         }
         else {
             alert("Please enter a valid bet amount");
