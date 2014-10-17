@@ -44,7 +44,7 @@ function init() {
     //initialize easel canvas and images.
     $('#slotCanvas').css('background-color', 'rgba(0, 0, 0, 0.9)');
     canvas = document.getElementById("slotCanvas");
-    canvas.width = 650;
+    canvas.width = 850;
     canvas.height = 300;
     stage = new createjs.Stage(canvas);
 
