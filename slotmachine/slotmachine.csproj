@@ -67,6 +67,7 @@
   <ItemGroup>
     <Content Include="css\main.css" />
     <Content Include="img\battlewornSpider.png" />
+    <Content Include="img\blank.jpg" />
     <Content Include="img\bulletProofSpiderman.png" />
     <Content Include="img\electroProof.png" />
     <Content Include="img\houseofMspiderman.png" />
@@ -79,7 +80,6 @@
     <Content Include="js\easeljs-0.7.1.min.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\main.js" />
-    <Content Include="js\movieclip-0.7.1.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
