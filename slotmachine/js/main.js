@@ -47,8 +47,8 @@ function init() {
     //initialize easel canvas and images.
     $('#slotCanvas').css('background-color', 'rgba(0, 0, 0, 0.9)');
     canvas = document.getElementById("slotCanvas");
-    canvas.width = 850;
-    canvas.height = 300;
+    canvas.width = 1280;
+    canvas.height = 500;
     stage = new createjs.Stage(canvas);
 
     
@@ -69,7 +69,7 @@ function init() {
     stage.addChild(canvasBG);
     canvasBG.x = 0;
     canvasBG.y = 0;
-    canvasBG.scaleX = 0.4;
+    canvasBG.scaleX = 0.5;
     canvasBG.scaleY = 0.4;
     stage.update();
 };
@@ -110,18 +110,18 @@ function drawBitmap(img1, img2, img3) {
     var image3 = new createjs.Bitmap(canvasImage3);
     
     stage.addChild(image1);
-    image1.scaleX = 0.5;
-    image1.scaleY = 0.5;
+    image1.scaleX = 0.8;
+    image1.scaleY = 0.8;
     image1.x = 20;
     image1.y = 20;
     stage.addChild(image2);
-    image2.scaleX = 0.5;
-    image2.scaleY = 0.5;
+    image2.scaleX = 0.8;
+    image2.scaleY = 0.8;
     image2.x = 170;
     image2.y = 20;
     stage.addChild(image3);
-    image3.scaleX = 0.5;
-    image3.scaleY = 0.5;
+    image3.scaleX = 0.8;
+    image3.scaleY = 0.8;
     image3.x = 320;
     image3.y = 20;
 
