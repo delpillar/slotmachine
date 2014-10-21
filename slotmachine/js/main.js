@@ -23,12 +23,19 @@ var canvas;
 var canvasImage1;
 var canvasImage2;
 var canvasImage3;
+var canvasImage4;
+var canvasImage5;
+var canvasImage6;
 var images;
 var stage;
 var sources;
 var background;
 var canvasBG;
 var message;
+var moneyText;
+var betText;
+var winningsText;
+
 function init() {
 
     //image sources
@@ -51,13 +58,13 @@ function init() {
     canvas.height = 500;
     stage = new createjs.Stage(canvas);
 
-    
-
-
     //instantiate canvas images
     canvasImage1 = new Image();
     canvasImage2 = new Image();
     canvasImage3 = new Image();
+    canvasImage4 = new Image();
+    canvasImage5 = new Image();
+    canvasImage6 = new Image();
     background = new Image();
 
     //preload blank images at start of game
@@ -66,24 +73,49 @@ function init() {
     });
     background.src = sources.background;
     canvasBG = new createjs.Bitmap(background);
-    stage.addChild(canvasBG);
-
     canvasBG.x = 0;
     canvasBG.y = 0;
     canvasBG.scaleX = 0.5;
     canvasBG.scaleY = 0.4;
 
     message = new createjs.Text();
-    message.font = "bold 96px Dorsa";
-    message.color = "#000000";
+    message.font = "bold 78px Impact";
+    message.color = "#ffffff";
     message.text = "Jackpot: " + jackpot;
-    message.x = 500;
-    message.y = 500;
+    message.x = 780;
+    message.y = 80;
     message.textBaseline = "alphabetic";
-    console.log(message);
-    console.log(message.text);
-    console.log(message.font);
+
+    moneyText = new createjs.Text();
+    moneyText.font = "bold 52px Impact";
+    moneyText.color = "#ffffff";
+    moneyText.text = "Player Money: $" + playerMoney;
+    moneyText.x = 780;
+    moneyText.y = 130;
+    moneyText.textBaseline = "alphabetic";
+
+    betText = new createjs.Text();
+    betText.font = "bold 52px Impact";
+    betText.color = "#ffffff";
+    betText.text = "Player Bet: $" + playerBet;
+    betText.x = 780;
+    betText.y = 190;
+    betText.textBaseline = "alphabetic";
+
+    winningsText = new createjs.Text();
+    winningsText.font = "bold 52px Dorsa";
+    winningsText.color = "#ffffff";
+    winningsText.text = "Winnings: $" + winnings;
+    winningsText.x = 780;
+    winningsText.y = 290;
+    winningsText.textBaseline = "alphabetic";
+
+    
+    stage.addChild(canvasBG);
     stage.addChild(message);
+    stage.addChild(moneyText);
+    stage.addChild(betText);
+    stage.addChild(winningsText);   
     stage.update();
 };
 
@@ -110,7 +142,43 @@ function loadImages(sources, callback) {
     }
     console.log("Loaded Images: " + loadedImages);
 }
+function drawText() {
 
+    message.font = "bold 78px Dorsa";
+    message.color = "#ffffff";
+    message.text = "Jackpot: " + jackpot;
+    message.x = 780;
+    message.y = 80;
+    message.textBaseline = "alphabetic";
+    stage.addChild(message);
+
+    moneyText.font = "bold 52px Dorsa";
+    moneyText.color = "#ffffff";
+    moneyText.text = "Player Money: $" + playerMoney;
+    moneyText.x = 780;
+    moneyText.y = 130;
+    moneyText.textBaseline = "alphabetic";
+    stage.addChild(moneyText);
+
+    betText.font = "bold 52px Dorsa";
+    betText.color = "#ffffff";
+    betText.text = "Player Bet: $" + playerBet;
+    betText.x = 780;
+    betText.y = 190;
+    betText.textBaseline = "alphabetic";
+    stage.addChild(betText);
+
+    winningsText.font = "bold 52px Dorsa";
+    winningsText.color = "#ffffff";
+    winningsText.text = "Winnings: $" + winnings;
+    winningsText.x = 780;
+    winningsText.y = 290;
+    winningsText.textBaseline = "alphabetic";
+    stage.addChild(winningsText);
+
+    stage.update();
+
+}
 //draws images on canvas; called when spin button is clicked.
 function drawBitmap(img1, img2, img3) {
     
@@ -123,46 +191,65 @@ function drawBitmap(img1, img2, img3) {
     var image3 = new createjs.Bitmap(canvasImage3);
     
     stage.addChild(image1);
-    image1.scaleX = 0.8;
-    image1.scaleY = 0.8;
-    image1.x = 40;
-    image1.y = 50;
+    image1.scaleX = 0.5;
+    image1.scaleY = 0.5;
+    image1.x = 60;
+    image1.y = 130;
     stage.addChild(image2);
-    image2.scaleX = 0.8;
-    image2.scaleY = 0.8;
+    image2.scaleX = 0.5;
+    image2.scaleY = 0.5;
     image2.x = image1.x + 250;
-    image2.y = 50;
+    image2.y = 130;
     stage.addChild(image3);
-    image3.scaleX = 0.8;
-    image3.scaleY = 0.8;
+    image3.scaleX = 0.5;
+    image3.scaleY = 0.5;
     image3.x = image2.x + 250;
-    image3.y = 50;
+    image3.y = 130;
 
-    message.font = "bold 96px Dorsa";
-    message.color = "#000000";
-    message.text = "Jackpot: " + jackpot;
-    console.log("Jackpot: " + jackpot);
-    message.x = 500;
-    message.y = 500;
-    message.textBaseline = "alphabetic";
-    stage.addChild(message);
-    
-
-    console.log(message);
     loadImages(sources, function (images) {
         stage.update();
     });
-    
-    
+}
+function drawTopImage(img4,img5,img6) {
+
+    canvasImage4.src = img4;
+    canvasImage5.src = img5;
+    canvasImage6.src = img6;
+
+    var image4 = new createjs.Bitmap(canvasImage4);
+    var image5 = new createjs.Bitmap(canvasImage5);
+    var image6 = new createjs.Bitmap(canvasImage6);
+
+    stage.addChild(image4);
+    image4.scaleX = 0.5;
+    image4.scaleY = 0.5;
+    image4.x = 60;
+    image4.y = -150;
+    stage.addChild(image5);
+    image5.scaleX = 0.5;
+    image5.scaleY = 0.5;
+    image5.x = image4.x + 250;
+    image5.y = image4.y;
+    stage.addChild(image6);
+    image6.scaleX = 0.5;
+    image6.scaleY = 0.5;
+    image6.x = image5.x + 250;
+    image6.y = image4.y;
+
+    loadImages(sources, function (images) {
+        stage.update();
+    });
+}
+
+function topImage() {
+    spinResult = Reels();
+    drawTopImage(spinResult[0],spinResult[1],spinResult[2])    
 }
 
 function showPlayerStats()
 /* Utility function to show Player Stats */
 {
     winRatio = winNumber / turn;
-    $("#jackpot").text("Jackpot: " + jackpot);
-    $("#playerMoney").text("Player Money: " + playerMoney);
-    $("#playerBets").text("Player bet: $" + playerBet);
 
     console.log("Jackpot: " + jackpot);
     console.log("Player Money: " + playerMoney);
@@ -220,6 +307,7 @@ function showWinMessage() {
 /* Utility function to show a loss message and reduce player money */
 function showLossMessage() {
     playerMoney -= playerBet;
+    winnings = 0;
     $("div#winOrLose>p").text("You Lost!");
     resetFruitTally();
 }
@@ -246,7 +334,6 @@ function Reels() {
             case checkRange(outCome[spin], 1, 27):  // 41.5% probability
                 betImage[spin] = "img/blank.jpg";
                 blanks++;
-                
                 break;
             case checkRange(outCome[spin], 28, 37): // 15.4% probability
                 grapes++;
@@ -354,22 +441,27 @@ function determineWinnings()
 $("#bet5").click(function () {
     playerBet += 5;
     showPlayerStats();
+    drawText();
 });
 $("#bet10").click(function () {
     playerBet += 10;
     showPlayerStats();
+    drawText();
 });
 $("#bet50").click(function () {
     playerBet += 50;
     showPlayerStats();
+    drawText();
 });
 $("#resetBet").click(function () {
     playerBet = 0;
     showPlayerStats();
+    drawText();
 });
 $("#betAll").click(function () {
     playerBet = playerMoney;
     showPlayerStats();
+    drawText();
 });
 
 /* When the player clicks the spin button the game kicks off */
@@ -401,6 +493,8 @@ $("#spinButton").click(function () {
             turn++;
             showPlayerStats();
             drawBitmap(spinResult[0], spinResult[1], spinResult[2]);
+            topImage();
+            drawText();
         }
         else {
             alert("Please enter a valid bet amount");
