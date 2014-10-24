@@ -1,4 +1,11 @@
+/*
+Source filename: main.js
+Author's Name: Charles Tapar
+Last Modified by: Charles Tapar
+Date Last Modified: 10/24/2014
+Revision History: https://github.com/delpillar/slotmachine/commits/master/slotmachine/js/main.js
 
+*/
 
 /// <reference path="jquery.js" />
 /// <reference path="easeljs-0.7.1.min.js" />
@@ -61,6 +68,7 @@ function init() {
         battlewornSpiderman: "img/battlewornSpider.png"
     };
     
+    //background sources
     bgSource = {
         background: "img/background2.jpg",
         logo: "img/logo.gif"
@@ -91,6 +99,7 @@ function init() {
         drawTopImage(sources.blank, sources.blank, sources.blank);
         drawBottomImage(sources.blank, sources.blank, sources.blank);
     });
+
     background.src = bgSource.background;
     canvasBG = new createjs.Bitmap(background);
     canvasBG.x = 0;
@@ -139,6 +148,8 @@ function loadImages(sources, callback) {
     for (var src in sources) {
         numImages++;
     }
+
+    //callsback array of image sources once image has been loaded
     for (var src in sources) {
         images[src] = new Image();
         images[src].onload = function () {
@@ -149,8 +160,9 @@ function loadImages(sources, callback) {
         images[src].src = sources[src];
     }
 }
-function drawText() {
 
+// collection of text drawn in canvas
+function drawText() {
 
     logoText.font = "bold 78px Impact";
     logoText.color = "#ffaf00";
@@ -187,6 +199,7 @@ function drawText() {
     winningsText.y = betText.y + 110;
     winningsText.textBaseline = "alphabetic";
 
+    //creates background for the texts
     shape = new createjs.Shape();
     shape.graphics.beginFill("#191301").drawRect(message.x - 10, message.y - 78, 500, 100);
     shape.graphics.beginFill("#191301").drawRect(moneyText.x - 10, moneyText.y - 78, 500, 100);
@@ -196,8 +209,8 @@ function drawText() {
 
 
 }
-//draws images on canvas; called when spin button is clicked.
-function drawBitmap(img1, img2, img3) {
+//draws betline images on canvas; called when spin button is clicked.
+function drawBitmap(img1, img2, img3) { // parameters require image source strings depending on the result of reels();
     
     canvasImage1.src = img1;
     canvasImage2.src = img2;
@@ -230,6 +243,7 @@ function drawBitmap(img1, img2, img3) {
         stage.update();
     });
 }
+//draws the top 3 images
 function drawTopImage(img4,img5,img6) {
 
     canvasImage4.src = img4;
@@ -266,7 +280,6 @@ function drawTopImage(img4,img5,img6) {
 }
 
 function drawBottomImage(img7, img8, img9) {
-    console.log(img7, img8, img9);
     canvasImage7.src = img7;
     canvasImage8.src = img8;
     canvasImage9.src = img9;
@@ -301,12 +314,13 @@ function drawBottomImage(img7, img8, img9) {
     });
 }
 
-
+//gets new random result for the bottom reels
 function topImage() {
     spinResult = BottomTopReels();
     drawTopImage(spinResult[0],spinResult[1],spinResult[2])    
 }
 
+//gets new random result for the bottom reels
 function bottomImage() {
     spinResult = BottomTopReels();
     drawBottomImage(spinResult[0], spinResult[1], spinResult[2])
@@ -323,8 +337,6 @@ function showPlayerStats()
     console.log("Losses: " + lossNumber);
     console.log("Win Ratio: " + winRatio * 100 + "%");
     console.log("Player bet: " + playerBet);
-
-    console.log(sources.blank);
 }
 
 /* Utility function to reset all fruit tallies */
@@ -390,11 +402,9 @@ function checkRange(value, lowerBounds, upperBounds) {
         return !value;
     }
 }
+
+//When this functions is called it determines the reel image to show on top or bottom reels
 function BottomTopReels() {
-
-
-
-
     var reelImage = [" ", " ", " "];
     var outcome = [0, 0, 0];
     for (var spin = 0; spin < 3; spin++) {
@@ -545,27 +555,22 @@ function determineWinnings()
 $("#bet5").click(function () {
     playerBet += 5;
     showPlayerStats();
-    //drawText();
 });
 $("#bet10").click(function () {
     playerBet += 10;
     showPlayerStats();
-    //drawText();
 });
 $("#bet50").click(function () {
     playerBet += 50;
     showPlayerStats();
-    //drawText();
 });
 $("#resetBet").click(function () {
     playerBet = 0;
     showPlayerStats();
-    //drawText();
 });
 $("#betAll").click(function () {
     playerBet = playerMoney;
     showPlayerStats();
-    //drawText();
 });
 
 /* When the player clicks the spin button the game kicks off */
@@ -590,16 +595,12 @@ $("#spinButton").click(function () {
             spinResult = Reels();
             
             fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-            console.log("initial fruits");
-            $("div#result>p").text(fruits);
             determineWinnings();
-            
             turn++;
             showPlayerStats();
             drawBitmap(spinResult[0], spinResult[1], spinResult[2]);
             topImage();
             bottomImage();
-            drawText();
         }
         else {
             alert("Please enter a valid bet amount");
@@ -607,6 +608,7 @@ $("#spinButton").click(function () {
     }
 });
 
+//closes current window if quit button is press
 $("#quitButton").click(function(){
     open(location, '_self').close();
 });
