@@ -26,6 +26,9 @@ var canvasImage3;
 var canvasImage4;
 var canvasImage5;
 var canvasImage6;
+var canvasImage7;
+var canvasImage8;
+var canvasImage9;
 var images;
 var stage;
 var sources;
@@ -35,22 +38,27 @@ var message;
 var moneyText;
 var betText;
 var winningsText;
+var shape;
+var arraySource;
 
 function init() {
 
     //image sources
     sources = {
-        battlewornSpiderman: "img/battlewornSpider.png",
-        bulletProofSpiderman: "img/bulletProofSpiderman.png",
-        electroProofSpiderman: "img/electroProof.png",
+        blank: "img/blank.jpg",
+        mangaSpiderman: "img/mangaSpider.png",
         houseofMSpiderman: "img/houseofMspiderman.png",
         lastStandSpiderman: "img/laststandspiderman.png",
-        mangaSpiderman: "img/mangaSpider.png",
+        electroProofSpiderman: "img/electroProof.png",
+        bulletProofSpiderman: "img/bulletProofSpiderman.png",
         armoredSpiderman: "img/spider-armor.png",
-        blank: "img/blank.jpg",
-        background: "img/background2.jpg"
+        battlewornSpiderman: "img/battlewornSpider.png"
     };
-   
+    
+    bgSource = {
+        background: "img/background2.jpg",
+        logo: "img/logo.gif"
+    }
     //initialize easel canvas and images.
     $('#slotCanvas').css('background-color', 'rgba(0, 0, 0, 0.9)');
     canvas = document.getElementById("slotCanvas");
@@ -65,59 +73,49 @@ function init() {
     canvasImage4 = new Image();
     canvasImage5 = new Image();
     canvasImage6 = new Image();
+    canvasImage7 = new Image();
+    canvasImage8 = new Image();
+    canvasImage9 = new Image();
     background = new Image();
 
     //preload blank images at start of game
     loadImages(sources, function () {
         drawBitmap(sources.blank, sources.blank, sources.blank);
+        drawTopImage(sources.blank, sources.blank, sources.blank);
+        drawBottomImage(sources.blank, sources.blank, sources.blank);
     });
-    background.src = sources.background;
+    background.src = bgSource.background;
     canvasBG = new createjs.Bitmap(background);
     canvasBG.x = 0;
     canvasBG.y = 0;
     canvasBG.scaleX = 0.5;
     canvasBG.scaleY = 0.4;
 
-    message = new createjs.Text();
-    message.font = "bold 78px Impact";
-    message.color = "#ffffff";
-    message.text = "Jackpot: " + jackpot;
-    message.x = 780;
-    message.y = 80;
-    message.textBaseline = "alphabetic";
-
-    moneyText = new createjs.Text();
-    moneyText.font = "bold 52px Impact";
-    moneyText.color = "#ffffff";
-    moneyText.text = "Player Money: $" + playerMoney;
-    moneyText.x = 780;
-    moneyText.y = 130;
-    moneyText.textBaseline = "alphabetic";
-
-    betText = new createjs.Text();
-    betText.font = "bold 52px Impact";
-    betText.color = "#ffffff";
-    betText.text = "Player Bet: $" + playerBet;
-    betText.x = 780;
-    betText.y = 190;
-    betText.textBaseline = "alphabetic";
-
-    winningsText = new createjs.Text();
-    winningsText.font = "bold 52px Dorsa";
-    winningsText.color = "#ffffff";
-    winningsText.text = "Winnings: $" + winnings;
-    winningsText.x = 780;
-    winningsText.y = 290;
-    winningsText.textBaseline = "alphabetic";
-
     
+    
+
+    message = new createjs.Text();
+    moneyText = new createjs.Text();
+    betText = new createjs.Text();
+    winningsText = new createjs.Text();
+
+    drawText();
+
+
     stage.addChild(canvasBG);
+    stage.addChild(shape);
     stage.addChild(message);
     stage.addChild(moneyText);
     stage.addChild(betText);
     stage.addChild(winningsText);   
     stage.update();
 };
+
+createjs.Ticker.addEventListener("tick", handleTick);
+function handleTick(event) {
+    drawText();
+    stage.update();
+}
 
 // function to preload images before drawing on canvas.
 function loadImages(sources, callback) {
@@ -129,54 +127,51 @@ function loadImages(sources, callback) {
     for (var src in sources) {
         numImages++;
     }
-    console.log("Num of Images: " + numImages);
     for (var src in sources) {
         images[src] = new Image();
         images[src].onload = function () {
             if (++loadedImages >= numImages) {
-                console.log(loadedImages);
                 callback(images);
             }
         };
         images[src].src = sources[src];
     }
-    console.log("Loaded Images: " + loadedImages);
 }
 function drawText() {
 
     message.font = "bold 78px Dorsa";
     message.color = "#ffffff";
     message.text = "Jackpot: " + jackpot;
-    message.x = 780;
-    message.y = 80;
+    message.x = 770;
+    message.y = 120;
     message.textBaseline = "alphabetic";
-    stage.addChild(message);
 
     moneyText.font = "bold 52px Dorsa";
     moneyText.color = "#ffffff";
     moneyText.text = "Player Money: $" + playerMoney;
-    moneyText.x = 780;
-    moneyText.y = 130;
+    moneyText.x = message.x;
+    moneyText.y = message.y + 110;
     moneyText.textBaseline = "alphabetic";
-    stage.addChild(moneyText);
 
     betText.font = "bold 52px Dorsa";
     betText.color = "#ffffff";
     betText.text = "Player Bet: $" + playerBet;
-    betText.x = 780;
-    betText.y = 190;
+    betText.x = message.x;
+    betText.y = moneyText.y + 110;
     betText.textBaseline = "alphabetic";
-    stage.addChild(betText);
 
     winningsText.font = "bold 52px Dorsa";
     winningsText.color = "#ffffff";
     winningsText.text = "Winnings: $" + winnings;
-    winningsText.x = 780;
-    winningsText.y = 290;
+    winningsText.x = message.x;
+    winningsText.y = betText.y + 110;
     winningsText.textBaseline = "alphabetic";
-    stage.addChild(winningsText);
 
-    stage.update();
+    shape = new createjs.Shape();
+    shape.graphics.beginFill("#191301").drawRect(message.x - 10, message.y - 78, 500, 100);
+    shape.graphics.beginFill("#191301").drawRect(moneyText.x - 10, moneyText.y - 78, 500, 100);
+    shape.graphics.beginFill("#191301").drawRect(betText.x - 10, betText.y - 78, 500, 100);
+    shape.graphics.beginFill("#191301").drawRect(winningsText.x - 10, winningsText.y - 78, 500, 100);
 
 }
 //draws images on canvas; called when spin button is clicked.
@@ -241,9 +236,47 @@ function drawTopImage(img4,img5,img6) {
     });
 }
 
+function drawBottomImage(img7, img8, img9) {
+    console.log(img7, img8, img9);
+    canvasImage7.src = img7;
+    canvasImage8.src = img8;
+    canvasImage9.src = img9;
+
+    var image7 = new createjs.Bitmap(canvasImage7);
+    var image8 = new createjs.Bitmap(canvasImage8);
+    var image9 = new createjs.Bitmap(canvasImage9);
+
+    image7.scaleX = 0.5;
+    image7.scaleY = 0.5;
+    image7.x = 60;
+    image7.y = 400;
+    image8.scaleX = 0.5;
+    image8.scaleY = 0.5;
+    image8.x = image7.x + 250;
+    image8.y = image7.y;
+    image9.scaleX = 0.5;
+    image9.scaleY = 0.5;
+    image9.x = image8.x + 250;
+    image9.y = image7.y;
+
+    stage.addChild(image7);
+    stage.addChild(image8);
+    stage.addChild(image9);
+
+    loadImages(sources, function (images) {
+        stage.update();
+    });
+}
+
+
 function topImage() {
-    spinResult = Reels();
+    spinResult = BottomTopReels();
     drawTopImage(spinResult[0],spinResult[1],spinResult[2])    
+}
+
+function bottomImage() {
+    spinResult = BottomTopReels();
+    drawBottomImage(spinResult[0], spinResult[1], spinResult[2])
 }
 
 function showPlayerStats()
@@ -257,6 +290,8 @@ function showPlayerStats()
     console.log("Losses: " + lossNumber);
     console.log("Win Ratio: " + winRatio * 100 + "%");
     console.log("Player bet: " + playerBet);
+
+    console.log(sources.blank);
 }
 
 /* Utility function to reset all fruit tallies */
@@ -293,13 +328,14 @@ function checkJackPot() {
         alert("You Won the $" + jackpot + " Jackpot!!");
         playerMoney += jackpot;
         jackpot = 5000;
+
+       
     }
 }
 
 /* Utility function to show a win message and increase player money */
 function showWinMessage() {
     playerMoney += winnings;
-    $("div#winOrLose>p").text("You Won: $" + winnings);
     resetFruitTally();
     checkJackPot();
 }
@@ -308,7 +344,6 @@ function showWinMessage() {
 function showLossMessage() {
     playerMoney -= playerBet;
     winnings = 0;
-    $("div#winOrLose>p").text("You Lost!");
     resetFruitTally();
 }
 
@@ -322,7 +357,44 @@ function checkRange(value, lowerBounds, upperBounds) {
         return !value;
     }
 }
+function BottomTopReels() {
 
+
+
+
+    var reelImage = [" ", " ", " "];
+    var outcome = [0, 0, 0];
+    for (var spin = 0; spin < 3; spin++) {
+        outcome[spin] = Math.floor((Math.random() * 65) + 1);
+        switch (outcome[spin]) {
+            case checkRange(outcome[spin], 1, 27):  // 41.5% probability
+                reelImage[spin] = "img/blank.jpg";
+                break;
+            case checkRange(outcome[spin], 28, 37): // 15.4% probability
+                reelImage[spin] = "img/mangaSpider.jpg";
+                break;
+            case checkRange(outcome[spin], 38, 46): // 13.8% probability
+                reelImage[spin] = "img/mangaSpider.jpg";
+                break;
+            case checkRange(outcome[spin], 47, 54): // 12.3% probability
+                reelImage[spin] = "img/laststandspiderman.png";
+                break;
+            case checkRange(outcome[spin], 55, 59): //  7.7% probability
+                reelImage[spin] = "img/electroProof.png";
+                break;
+            case checkRange(outcome[spin], 60, 62): //  4.6% probability
+                reelImage[spin] = "img/bulletProofSpiderman.png";
+                break;
+            case checkRange(outcome[spin], 63, 64): //  3.1% probability
+                reelImage[spin] = "img/spider-armor.png";
+                break;
+            case checkRange(outcome[spin], 65, 65): //  1.5% probability
+                reelImage[spin] = "img/battlewornSpider.png";
+                break;
+        }
+    }
+    return reelImage
+}
 /* When this function is called it determines the betLine results.
 e.g. Bar - Orange - Banana */
 function Reels() {
@@ -332,35 +404,35 @@ function Reels() {
         outCome[spin] = Math.floor((Math.random() * 65) + 1);
         switch (outCome[spin]) {
             case checkRange(outCome[spin], 1, 27):  // 41.5% probability
-                betImage[spin] = "img/blank.jpg";
+                betImage[spin] = sources.blank;
                 blanks++;
                 break;
             case checkRange(outCome[spin], 28, 37): // 15.4% probability
                 grapes++;
-                betImage[spin] = "img/mangaSpider.jpg";
+                betImage[spin] = sources.mangaSpiderman;
                 break;
             case checkRange(outCome[spin], 38, 46): // 13.8% probability
                 bananas++;
-                betImage[spin] = "img/mangaSpider.jpg";
+                betImage[spin] = sources.houseofMSpiderman;
                 break;
             case checkRange(outCome[spin], 47, 54): // 12.3% probability
                 oranges++;
-                betImage[spin] = "img/laststandspiderman.png";
+                betImage[spin] = sources.lastStandSpiderman;
                 break;
             case checkRange(outCome[spin], 55, 59): //  7.7% probability
-                betImage[spin] = "img/electroProof.png";
+                betImage[spin] = sources.electroProofSpiderman;
                 cherries++;
                 break;
             case checkRange(outCome[spin], 60, 62): //  4.6% probability
-                betImage[spin] = "img/bulletProofSpiderman.png";
+                betImage[spin] = sources.bulletProofSpiderman;
                 bars++;
                 break;
             case checkRange(outCome[spin], 63, 64): //  3.1% probability
-                betImage[spin] = "img/spider-armor.png";
+                betImage[spin] = sources.armoredSpiderman;
                 bells++;
                 break;
             case checkRange(outCome[spin], 65, 65): //  1.5% probability
-                betImage[spin] = "img/battlewornSpider.png";
+                betImage[spin] = sources.battlewornSpiderman;
                 sevens++;
                 break;
         }
@@ -441,27 +513,27 @@ function determineWinnings()
 $("#bet5").click(function () {
     playerBet += 5;
     showPlayerStats();
-    drawText();
+    //drawText();
 });
 $("#bet10").click(function () {
     playerBet += 10;
     showPlayerStats();
-    drawText();
+    //drawText();
 });
 $("#bet50").click(function () {
     playerBet += 50;
     showPlayerStats();
-    drawText();
+    //drawText();
 });
 $("#resetBet").click(function () {
     playerBet = 0;
     showPlayerStats();
-    drawText();
+    //drawText();
 });
 $("#betAll").click(function () {
     playerBet = playerMoney;
     showPlayerStats();
-    drawText();
+    //drawText();
 });
 
 /* When the player clicks the spin button the game kicks off */
@@ -487,6 +559,7 @@ $("#spinButton").click(function () {
             spinResult = Reels();
             
             fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
+            console.log("initial fruits");
             $("div#result>p").text(fruits);
             determineWinnings();
             
@@ -494,10 +567,15 @@ $("#spinButton").click(function () {
             showPlayerStats();
             drawBitmap(spinResult[0], spinResult[1], spinResult[2]);
             topImage();
+            bottomImage();
             drawText();
         }
         else {
             alert("Please enter a valid bet amount");
         }
     }
+});
+
+$("#quitButton").click(function(){
+    open(location, '_self').close();
 });
