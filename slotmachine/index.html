@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -14,6 +14,9 @@
         <canvas id="slotCanvas" style="display:block;">canvas not supported.</canvas>
 
         <div class="buttons-container">
+            <div class="button-container" style="border-radius:0; width:160px">
+                <button id="resetGame" class="btn btn-blue" style="width:160px" onclick="resetAll()">Reset Game</button>
+            </div>
             <div class="button-container">
                 <button id="resetBet" class="btn btn-red">Reset</button>
             </div>
@@ -31,6 +34,9 @@
             </div>
             <div class="button-container">
                 <button id="spinButton" class="btn btn-green">Spin!</button>
+            </div>
+            <div class="button-container" style="border-radius:0; width:160px; float:right;">
+                <button id="quitButton" class="btn btn-blue" style="width:160px; border-radius:0">Quit Game</button>
             </div>
         </div>
 
