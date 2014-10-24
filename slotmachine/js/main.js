@@ -1,3 +1,5 @@
+
+
 /// <reference path="jquery.js" />
 /// <reference path="easeljs-0.7.1.min.js" />
 
@@ -34,13 +36,17 @@ var stage;
 var sources;
 var background;
 var canvasBG;
+var canvasLogo;
 var message;
 var moneyText;
 var betText;
 var winningsText;
 var shape;
 var arraySource;
+var spiderLogo;
+var logoText;
 
+//initialize images, shapes, easeljs and createjs functions
 function init() {
 
     //image sources
@@ -63,7 +69,7 @@ function init() {
     $('#slotCanvas').css('background-color', 'rgba(0, 0, 0, 0.9)');
     canvas = document.getElementById("slotCanvas");
     canvas.width = 1280;
-    canvas.height = 500;
+    canvas.height = 1000;
     stage = new createjs.Stage(canvas);
 
     //instantiate canvas images
@@ -77,6 +83,7 @@ function init() {
     canvasImage8 = new Image();
     canvasImage9 = new Image();
     background = new Image();
+    spiderLogo = new Image();
 
     //preload blank images at start of game
     loadImages(sources, function () {
@@ -88,19 +95,21 @@ function init() {
     canvasBG = new createjs.Bitmap(background);
     canvasBG.x = 0;
     canvasBG.y = 0;
-    canvasBG.scaleX = 0.5;
-    canvasBG.scaleY = 0.4;
+    canvasBG.scaleX = 0.8;
+    canvasBG.scaleY = 0.8;
 
-    
-    
+    spiderLogo.src = bgSource.logo;
+    canvasLogo = new createjs.Bitmap(spiderLogo);
+    canvasLogo.x = canvas.width/4 + 80; 
+    canvasLogo.y = 35;
 
     message = new createjs.Text();
     moneyText = new createjs.Text();
     betText = new createjs.Text();
     winningsText = new createjs.Text();
+    logoText = new createjs.Text();
 
     drawText();
-
 
     stage.addChild(canvasBG);
     stage.addChild(shape);
@@ -108,12 +117,15 @@ function init() {
     stage.addChild(moneyText);
     stage.addChild(betText);
     stage.addChild(winningsText);   
+    stage.addChild(canvasLogo);
+    stage.addChild(logoText);
     stage.update();
 };
 
+
 createjs.Ticker.addEventListener("tick", handleTick);
 function handleTick(event) {
-    drawText();
+    drawText(); //draw text updates to correspond bet events and spin events.
     stage.update();
 }
 
@@ -139,11 +151,19 @@ function loadImages(sources, callback) {
 }
 function drawText() {
 
+
+    logoText.font = "bold 78px Impact";
+    logoText.color = "#ffaf00";
+    logoText.text = "SLOT MACHINE";
+    logoText.x = 600;
+    logoText.y = 250;
+    logoText.textBaseline = "alphabetic";
+
     message.font = "bold 78px Dorsa";
     message.color = "#ffffff";
     message.text = "Jackpot: " + jackpot;
-    message.x = 770;
-    message.y = 120;
+    message.x = 750;
+    message.y = 400;
     message.textBaseline = "alphabetic";
 
     moneyText.font = "bold 52px Dorsa";
@@ -172,6 +192,8 @@ function drawText() {
     shape.graphics.beginFill("#191301").drawRect(moneyText.x - 10, moneyText.y - 78, 500, 100);
     shape.graphics.beginFill("#191301").drawRect(betText.x - 10, betText.y - 78, 500, 100);
     shape.graphics.beginFill("#191301").drawRect(winningsText.x - 10, winningsText.y - 78, 500, 100);
+    shape.graphics.beginStroke("#ffffff").drawRect(50, 280, 660, 540);
+
 
 }
 //draws images on canvas; called when spin button is clicked.
@@ -184,23 +206,26 @@ function drawBitmap(img1, img2, img3) {
     var image1 = new createjs.Bitmap(canvasImage1);
     var image2 = new createjs.Bitmap(canvasImage2);
     var image3 = new createjs.Bitmap(canvasImage3);
-    
+    var line = new createjs.Shape();
+
+    line.graphics.beginFill("#a91919").drawRect(50, 275*2, 660, 10);
+
     stage.addChild(image1);
     image1.scaleX = 0.5;
     image1.scaleY = 0.5;
     image1.x = 60;
-    image1.y = 130;
+    image1.y = 430;
     stage.addChild(image2);
     image2.scaleX = 0.5;
     image2.scaleY = 0.5;
     image2.x = image1.x + 250;
-    image2.y = 130;
+    image2.y = image1.y;
     stage.addChild(image3);
     image3.scaleX = 0.5;
     image3.scaleY = 0.5;
     image3.x = image2.x + 250;
-    image3.y = 130;
-
+    image3.y = image1.y;
+    stage.addChild(line);
     loadImages(sources, function (images) {
         stage.update();
     });
@@ -215,11 +240,15 @@ function drawTopImage(img4,img5,img6) {
     var image5 = new createjs.Bitmap(canvasImage5);
     var image6 = new createjs.Bitmap(canvasImage6);
 
+    image4.sourceRect = new createjs.Rectangle(0,canvasImage4.height/2,canvasImage4.width,canvasImage4.height/2);
+    image5.sourceRect = new createjs.Rectangle(0,canvasImage4.height/2,canvasImage4.width,canvasImage4.height/2);
+    image6.sourceRect = new createjs.Rectangle(0,canvasImage4.height/2,canvasImage4.width,canvasImage4.height/2);
+
     stage.addChild(image4);
     image4.scaleX = 0.5;
     image4.scaleY = 0.5;
     image4.x = 60;
-    image4.y = -150;
+    image4.y = 300;
     stage.addChild(image5);
     image5.scaleX = 0.5;
     image5.scaleY = 0.5;
@@ -246,10 +275,14 @@ function drawBottomImage(img7, img8, img9) {
     var image8 = new createjs.Bitmap(canvasImage8);
     var image9 = new createjs.Bitmap(canvasImage9);
 
+    image7.sourceRect = new createjs.Rectangle(0,0,canvasImage4.width,canvasImage4.height/2);
+    image8.sourceRect = new createjs.Rectangle(0,0,canvasImage4.width,canvasImage4.height/2);
+    image9.sourceRect = new createjs.Rectangle(0,0,canvasImage4.width,canvasImage4.height/2);
+
     image7.scaleX = 0.5;
     image7.scaleY = 0.5;
     image7.x = 60;
-    image7.y = 400;
+    image7.y = 680;
     image8.scaleX = 0.5;
     image8.scaleY = 0.5;
     image8.x = image7.x + 250;
@@ -507,7 +540,6 @@ function determineWinnings()
         jackpot += playerBet;
         showLossMessage();
     }
-    
 }
 /* Adds all values from the bet buttons to the playerBet var */
 $("#bet5").click(function () {
@@ -538,7 +570,6 @@ $("#betAll").click(function () {
 
 /* When the player clicks the spin button the game kicks off */
 $("#spinButton").click(function () {
-    //playerBet = $("div#betEntry>input").val();
     if (playerBet == 0 && playerMoney != 0) {
         alert("You don't have any bet!");
     }
@@ -550,7 +581,7 @@ $("#spinButton").click(function () {
             }
         }
         else if (playerBet > playerMoney) {
-            alert("You don't have enough Money to place that bet.");
+            playerBet = playerMoney; //changes the bet to whatever money the player has left.
         }
         else if (playerBet < 0) {
             alert("All bets must be a positive $ amount.");
