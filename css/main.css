@@ -1,0 +1,104 @@
+﻿/*
+Source filename: main.css
+Author's Name: Charles Tapar
+Last Modified by: Charles Tapar
+Date Last Modified: 10/23/2014
+Revision History: https://github.com/delpillar/slotmachine/commits/master/slotmachine/css/main.css
+
+*/
+
+ul#playerStats {
+    list-style-type: none;
+    padding: 0;
+    margin: 5px;
+}
+
+.btn-blue {
+  background: #108FE8;
+  box-shadow: 0 -2px 0 3px #0d72b8 inset, 0 5px 5px rgba(3, 25, 41, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 75px;
+  width: 75px;
+}
+
+.btn-red {
+  background: #E53030;
+  box-shadow: 0 -2px 0 3px #c91919 inset, 0 5px 5px rgba(65, 8, 8, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 75px;
+  width: 75px;
+}
+
+.btn-green {
+  background: #0EC518;
+  box-shadow: 0 -2px 0 3px #0b9512 inset, 0 5px 5px rgba(0, 7, 1, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 75px;
+  width: 75px;
+}
+
+.btn-yellow {
+  background: #FFC334;
+  box-shadow: 0 -2px 0 3px #ffb401 inset, 0 5px 5px rgba(103, 73, 0, 0.17), 0 15px rgba(255, 255, 255, 0.25) inset;
+  cursor: pointer;
+  display: inline-block;
+  height: 75px;
+  width: 75px;
+}
+
+.buttons-container{
+    float:left;
+    margin: 0 20px 0 auto;
+    width: 1260px;
+    height: 110px;
+    background: #a91919;
+    padding-left: 20px;
+}
+
+
+.button-container {
+  
+  margin: 10px 20px 0 auto;
+  padding: 12px;
+  background: #c91919;
+  width: 90px;
+  height: 60px;
+  float:left;
+  border-radius: 80%;
+  box-shadow: #E53030 0 4px 5px inset, rgba(255, 255, 255, 0.5) 0 12px 5px inset, #8d0230 0 -12px 5px inset, rgba(0, 0, 0, 0.8) 0 4px 8px;
+}
+
+.btn {
+  
+  border-radius: 60%;
+  cursor: pointer;
+  width: 90px;
+  height: 60px;
+  font-size: 20px;
+  padding: 20px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px 5px, rgba(255, 255, 255, 0.7) 0 3px 3px inset, rgba(0, 7, 1, 0.17) 0 8px 10px inset, rgba(0, 0, 0, 0.3) 0 20px 10px inset, rgba(255, 255, 255, 0.5) 0 -2px 3px inset, rgba(0, 0, 0, 0.8) 0 -7px 20px inset;
+}
+.btn:hover {
+  background-image: -moz-radial-gradient(40px 40px, circle contain, #fc4582, #fd5e93 30px, #fd5e93 40px, #fc4582 65px);
+  background-image: -webkit-radial-gradient(40px 40px, circle contain, #fc4582, #fd5e93 30px, #fd5e93 40px, #fc4582 65px);
+  background-image: radial-gradient(40px 40px, circle contain, #fc4582, #fd5e93 30px, #fd5e93 40px, #fc4582 65px);
+  box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px 5px, rgba(255, 255, 255, 0.9) 0 3px 3px inset, #8d0230 0 8px 10px inset, rgba(0, 0, 0, 0.3) 0 20px 10px inset, rgba(255, 255, 255, 0.5) 0 -2px 3px inset, #8d0230 0 -7px 20px inset;
+}
+.btn:active {
+  border-color: black;
+  background-image: -moz-radial-gradient(40px 40px, circle contain, #fc2c71 15px, #d8034a 30px, #d8034a 40px, #a60239 65px);
+  background-image: -webkit-radial-gradient(40px 40px, circle contain, #fc2c71 15px, #d8034a 30px, #d8034a 40px, #a60239 65px);
+  background-image: radial-gradient(40px 40px, circle contain, #fc2c71 15px, #d8034a 30px, #d8034a 40px, #a60239 65px);
+  -moz-box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px 5px, rgba(0, 0, 0, 0.8) 0 3px 3px inset, #8d0230 0 8px 10px inset, rgba(0, 0, 0, 0.3) 0 20px 10px inset, rgba(255, 255, 255, 0.3) 0 -2px 3px inset, #8d0230 0 -7px 20px inset;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px 5px, rgba(0, 0, 0, 0.8) 0 3px 3px inset, #8d0230 0 8px 10px inset, rgba(0, 0, 0, 0.3) 0 20px 10px inset, rgba(255, 255, 255, 0.3) 0 -2px 3px inset, #8d0230 0 -7px 20px inset;
+  box-shadow: rgba(0, 0, 0, 0.8) 0 0 10px 5px, rgba(0, 0, 0, 0.8) 0 3px 3px inset, #8d0230 0 8px 10px inset, rgba(0, 0, 0, 0.3) 0 20px 10px inset, rgba(255, 255, 255, 0.3) 0 -2px 3px inset, #8d0230 0 -7px 20px inset;
+}
+
+#resetGame {
+    border-radius: 0;
+}
