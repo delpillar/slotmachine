@@ -1,4 +1,13 @@
-﻿ul#playerStats {
+﻿/*
+Source filename: main.css
+Author's Name: Charles Tapar
+Last Modified by: Charles Tapar
+Date Last Modified: 10/23/2014
+Revision History: https://github.com/delpillar/slotmachine/commits/master/slotmachine/css/main.css
+
+*/
+
+ul#playerStats {
     list-style-type: none;
     padding: 0;
     margin: 5px;
