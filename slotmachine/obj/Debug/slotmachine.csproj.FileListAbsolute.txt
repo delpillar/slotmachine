@@ -1,0 +1,6 @@
+C:\xampp\htdocs\webGame\slotmachine\slotmachine\bin\slotmachine.dll.config
+C:\xampp\htdocs\webGame\slotmachine\slotmachine\bin\slotmachine.dll
+C:\xampp\htdocs\webGame\slotmachine\slotmachine\bin\slotmachine.pdb
+C:\xampp\htdocs\webGame\slotmachine\slotmachine\obj\Debug\slotmachine.csprojResolveAssemblyReference.cache
+C:\xampp\htdocs\webGame\slotmachine\slotmachine\obj\Debug\slotmachine.dll
+C:\xampp\htdocs\webGame\slotmachine\slotmachine\obj\Debug\slotmachine.pdb
